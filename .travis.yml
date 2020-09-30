@@ -11,7 +11,7 @@ script:
      -  docker --version    
 
 after_success: 
-    - docker build -t nitinrai17/expensetrackerui -f ./expensetrackerui/Dockerfile.dev ./expensetrackerui
+    - docker build -t nitinrai17/expensetrackerui -f ./expensetrackerui/Dockerfile ./expensetrackerui
     - docker build -t nitinrai17/expensetrackerapi -f ./expensetrackerapi/Dockerfile.dev ./expensetrackerapi
     
     # login into docker hub 
