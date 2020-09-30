@@ -24,7 +24,7 @@ deploy:
     provider: elasticbeanstalk
     region: us-east-2
     app: ExpenseTracker
-    env: Expensetracker-env
+    env: ExpenseTracker-env-1
     bucket_name: expensetrackerapp
     bucket_path: ExpenseTracker
     on: 
