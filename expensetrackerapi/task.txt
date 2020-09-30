@@ -1,0 +1,5 @@
+(1)Junit test cases for Services
+(2)Swagger 
+(3)Docker
+(4)postgresql implementation - after deployment in aws
+(5)update the Readme and Help.md file - after deployment in aws

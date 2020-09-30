@@ -1,0 +1,24 @@
+spring:
+   application:
+      name: ExpenseTracker
+   jpa:
+      show:
+         sql: true
+   h2:
+      console:
+         enabled: true
+   datasource:
+      generated-unique-name: false
+      
+server:
+   port: 8080
+   
+logging:
+   file: logs/expense-tracker-api.log
+   
+info:
+   build:
+      artifact: expense-tracker-api
+      name: ExpenseTrackerAPI
+      description: API for Expense Tracker
+      version: 1.0

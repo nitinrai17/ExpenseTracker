@@ -1,0 +1,31 @@
+sudo: required
+services:
+    - docker
+    
+before_install:
+#    - docker build -t nitinrai17/expensetrackerui-test -f ./expensetrackerui/Dockerfile.dev ./expensetrackerui
+#    - docker build -t nitinrai17/expensetrackerapi-test -f ./expensetrackerapi/Dockerfile.dev ./expensetrackerapi
+script:
+#    - docker run -e CI=true nitinrai17/fibcalculator_client-test npm run test -- --coverage    
+
+after_success: 
+    - docker build -t nitinrai17/expensetrackerui -f ./expensetrackerui/Dockerfile.dev ./expensetrackerui
+    - docker build -t nitinrai17/expensetrackerapi -f ./expensetrackerapi/Dockerfile.dev ./expensetrackerapi
+    
+    # login into docker hub 
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    #  take those image and push into the docker hub 
+    - docker push  nitinrai17/expensetrackerui 
+    - docker push  nitinrai17/expensetrackerapi
+
+#deploy:
+#    provider: elasticbeanstalk
+#    region: us-east-2
+#    app: FiboCalculator
+#    env: Fibocalculator-env
+#    bucket_name: elasticbeanstalk-us-east-2-117771544263
+#    bucket_path: FiboCalculator
+#    on: 
+#        branch: master
+#    access_key_id: $AWS_ACCESS_KEY
+#    secret_access_key: $AWS_SECRET_KEY

@@ -1,0 +1,6 @@
+(1)Axios implementation
+(2)Moment implementation
+(3)Add button functionlity implementation\
+(4)Docker implementation
+(5) Console error rectified
+(6)Home, Category page - curd operation
