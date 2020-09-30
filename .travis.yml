@@ -20,14 +20,14 @@ after_success:
     - docker push  nitinrai17/expensetrackerui 
     - docker push  nitinrai17/expensetrackerapi
 
-#deploy:
-#    provider: elasticbeanstalk
-#    region: us-east-2
-#    app: FiboCalculator
-#    env: Fibocalculator-env
-#    bucket_name: elasticbeanstalk-us-east-2-117771544263
-#    bucket_path: FiboCalculator
-#    on: 
-#        branch: master
-#    access_key_id: $AWS_ACCESS_KEY
-#    secret_access_key: $AWS_SECRET_KEY
+deploy:
+    provider: elasticbeanstalk
+    region: us-east-2
+    app: ExpenseTracker
+    env: Expensetracker-env
+    bucket_name: elasticbeanstalk-us-east-2-117771544263
+    bucket_path: ExpenseTracker
+    on: 
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
