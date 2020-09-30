@@ -2,10 +2,10 @@ sudo: required
 services:
     - docker
     
-before_install:
+#before_install:
 #    - docker build -t nitinrai17/expensetrackerui-test -f ./expensetrackerui/Dockerfile.dev ./expensetrackerui
 #    - docker build -t nitinrai17/expensetrackerapi-test -f ./expensetrackerapi/Dockerfile.dev ./expensetrackerapi
-script:
+#script:
 #    - docker run -e CI=true nitinrai17/fibcalculator_client-test npm run test -- --coverage    
 
 after_success: 
