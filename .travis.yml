@@ -1,14 +1,14 @@
 sudo: required
-language: java
-jdk: oraclejdk9
+
 services:
     - docker
     
 #before_install:
 #    - docker build -t nitinrai17/expensetrackerui-test -f ./expensetrackerui/Dockerfile.dev ./expensetrackerui
 #    - docker build -t nitinrai17/expensetrackerapi-test -f ./expensetrackerapi/Dockerfile.dev ./expensetrackerapi
-#script:
-#    - docker run -e CI=true nitinrai17/fibcalculator_client-test npm run test -- --coverage    
+script:
+#    - docker run -e CI=true nitinrai17/fibcalculator_client-test npm run test -- --coverage
+     -  docker --version    
 
 after_success: 
     - docker build -t nitinrai17/expensetrackerui -f ./expensetrackerui/Dockerfile.dev ./expensetrackerui
