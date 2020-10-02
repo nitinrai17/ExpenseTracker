@@ -6,6 +6,12 @@
             "image": "nitinrai17/expensetrackerapi",
             "hostname": "expensetrackerapi",
             "essential": false,
+            "portMappings": [
+                {
+                    "hostPort": 8080,
+                    "containerPort": 8080
+                }
+            ],
             "memory": 128
         },       
         {
