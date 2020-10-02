@@ -13,20 +13,6 @@
                 }
             ],
             "memory": 256 
-        },       
-        {
-            "name":"expensetrackerui",
-            "image":"nitinrai17/expensetrackerui",
-            "hostname": "expensetrackerui",
-            "essential": true,
-            "portMappings": [
-                {
-                    "hostPort": 80,
-                    "containerPort": 80
-                }
-            ],
-            "links": ["expensetrackerapi"],
-            "memory": 128
         }
     ]
 
