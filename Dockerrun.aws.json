@@ -12,7 +12,6 @@
                     "containerPort": 8080
                 }
             ],
-            "links": ["expensetrackerapi"],
             "memory": 256 
         },       
         {
