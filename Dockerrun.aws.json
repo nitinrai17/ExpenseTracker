@@ -12,7 +12,8 @@
                     "containerPort": 8080
                 }
             ],
-            "memory": 128
+            "links": ["expensetrackerapi"],
+            "memory": 256 
         },       
         {
             "name":"expensetrackerui",
