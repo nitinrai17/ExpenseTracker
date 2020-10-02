@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AppNav from './AppNav';
-import { fetchCategoryData, saveCategoryData, deleteCategoryData } from './api/UtilsData';
+import { removeCategory, createCategory, getAllCategories } from './api/UtilsData';
 import { Table, Container, Form, FormGroup, Button, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -30,12 +30,9 @@ class Category extends Component {
     }
 
      async componentDidMount(){
-         const response = await fetchCategoryData();
-         console.log(response);
-        //  const body = await response.data;
-          const body = await response.json();
-         this.setState({categories : body, isLoading : false});
-
+        const body = await getAllCategories();
+        console.log(body);
+        this.setState({categories : body, isLoading : false});
      }
 
      async handleChange(event){
@@ -54,21 +51,18 @@ class Category extends Component {
         event.preventDefault();
         const {item }= this.state;
         console.log(this.state);
-        await saveCategoryData(item);
+        await createCategory(item);
         this.props.history.push('/categories');
     }
 
     async remove(id){
-        await deleteCategoryData(id)
-        .then(()=>{
-            let updatedCategory=[...this.state.categories].filter( i=> i.id !== id);
-            this.setState({categories : updatedCategory });
-        });
+        await removeCategory(id);
+        //.then(()=>{
+        //    let updatedCategory=[...this.state.categories].filter( i=> i.id !== id);
+        //    this.setState({categories : updatedCategory });
+        //});
         this.props.history.push('/categories');
     }
-
-
-
 
     render() { 
         const { categories, isLoading } = this.state;

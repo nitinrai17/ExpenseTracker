@@ -5,6 +5,7 @@ import "./App.css";
 import "react-datepicker/dist/react-datepicker.css";
 import { Table, Container, Form, FormGroup, Button, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { getAllCategories, getAllExpenses, createExpense, removeExpense } from './api/UtilsData';
 
 
 
@@ -40,15 +41,7 @@ class Expenses extends Component {
     async handleSubmit(event){
         event.preventDefault();
         const {item }= this.state;        
-        await fetch(`/api/1.0/expense`,{
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body : JSON.stringify(item)
-        });
-
+        await createExpense(item);
         console.log(this.state.item);
         this.props.history.push('/expenses');
 
@@ -82,28 +75,16 @@ class Expenses extends Component {
     }
 
     async remove(id){
-        await fetch(`/api/1.0/expense/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(()=>{
-            let updatedExpense=[...this.state.expenses].filter( i=> i.id !== id);
-            this.setState({expenses : updatedExpense });
-        });
+        await removeExpense(id);
+        this.props.history.push('/expenses');
     }
 
       async componentDidMount(){
-        const response= await fetch('/api/1.0/categories');
-        const body = await response.json();
+        const body= await getAllCategories();
         this.setState({categories : body, isLoading: false});
 
-        const resExpenses= await fetch('/api/1.0/expenses');
-        const bodyExpenses = await resExpenses.json();
+        const bodyExpenses= await getAllExpenses();
         this.setState({expenses : bodyExpenses, isLoading: false});
-
-
       }
 
 

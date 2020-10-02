@@ -1,12 +1,37 @@
 //import axios from 'axios';
+import { API_BASE_URL,ACCESS_TOKEN } from '../constants';
 
 //const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api/1.0'; 
+
+const request = (options) => {
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+    })
+    
+    if(localStorage.getItem(ACCESS_TOKEN)) {
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
+    }
+
+    const defaults = {headers: headers};
+    options = Object.assign({}, defaults, options);
+
+    return fetch(options.url, options)
+    .then(response => 
+        response.json().then(json => {
+            if(!response.ok) {
+                return Promise.reject(json);
+            }
+            return json;
+        })
+    );
+};
+
 
 export const fetchCategoryData = async () => {
 		
 	try{
-		//return await axios.get(`${API_BASE_URL}/categories`);
-		return await fetch('/api/1.0/categories', {
+		
+		return await fetch('categories', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -18,6 +43,58 @@ export const fetchCategoryData = async () => {
 		
 	}
 };
+
+export function getAllCategories() {
+    
+    return request({
+        url: API_BASE_URL + '/categories',
+        method: 'GET'
+    });
+}
+
+export function createCategory(category) {
+    
+    return request({
+        url: API_BASE_URL + '/category',
+        method: 'POST',
+        body: JSON.stringify(category)         
+    });
+}
+
+export function removeCategory(id) {
+    
+    return request({
+        url: API_BASE_URL + `/category/${id}`,
+        method: 'DELETE'
+    });
+}
+
+
+export function getAllExpenses() {
+    
+    return request({
+        url: API_BASE_URL + '/expenses',
+        method: 'GET'
+    });
+}
+
+export function createExpense(expense) {
+    
+    return request({
+        url: API_BASE_URL + '/expense',
+        method: 'POST',
+        body: JSON.stringify(expense)         
+    });
+}
+
+export function removeExpense(id) {
+    
+    return request({
+        url: API_BASE_URL + `/expense/${id}`,
+        method: 'DELETE'
+    });
+}
+
 
 export const saveCategoryData = async (category) => {
 		
