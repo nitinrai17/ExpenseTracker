@@ -8,12 +8,33 @@
             "essential": true,
             "portMappings": [
                 {
+                    "hostPort": 8080,
+                    "containerPort": 8080
+                }
+            ],
+            "memory": 256 
+        },       
+        {
+            "name":"expensetrackerui",
+            "image":"nitinrai17/expensetrackerui",
+            "hostname": "expensetrackerui",
+            "essential": true,
+            "portMappings": [
+                {
                     "hostPort": 80,
                     "containerPort": 80
                 }
             ],
-            "memory": 256 
+            "links": ["expensetrackerapi"],
+            "memory": 128,
+            "environment": [
+                {
+                    "name": "REACT_APP_API_BASE_URL",
+                    "value": "http://expensetrackerapi:8080/api/1.0"
+                }               
+                ]
         }
+		
     ]
 
 }
