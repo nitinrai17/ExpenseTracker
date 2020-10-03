@@ -11,7 +11,7 @@ spring:
       generated-unique-name: false
       
 server:
-   port: 8080
+   port: 80
    compression: 
       enabled: true
    
