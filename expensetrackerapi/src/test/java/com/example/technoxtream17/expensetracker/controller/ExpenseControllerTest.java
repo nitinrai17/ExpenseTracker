@@ -1,7 +1,6 @@
 package com.example.technoxtream17.expensetracker.controller;
 
 import static com.example.technoxtream17.expensetracker.constant.Paths.API;
-import static com.example.technoxtream17.expensetracker.constant.Paths.EXPENSE;
 import static com.example.technoxtream17.expensetracker.constant.Paths.EXPENSES;
 import static com.example.technoxtream17.expensetracker.constant.Paths.FORWARDSLASH;
 import static com.example.technoxtream17.expensetracker.constant.Paths.VERSION;
@@ -72,7 +71,7 @@ class ExpenseControllerTest {
 	void testGetExpense() throws Exception {
 		given(expenseController.getExpense(expense.getId())).willReturn(new ResponseEntity(expense, HttpStatus.OK));
 		
-		mvc.perform(get(COMMONURL+EXPENSE+FORWARDSLASH+1)
+		mvc.perform(get(COMMONURL+EXPENSES+FORWARDSLASH+1)
 				.contentType(APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("id", is(expense.getId())))
@@ -82,7 +81,7 @@ class ExpenseControllerTest {
 	
 	@Test
 	void testGetExpenseWithError() throws Exception {
-		mvc.perform(put(COMMONURL+EXPENSE+FORWARDSLASH)
+		mvc.perform(put(COMMONURL+EXPENSES+FORWARDSLASH)
 				.contentType(APPLICATION_JSON))
 				.andExpect(status().isMethodNotAllowed());
 	}
@@ -91,13 +90,12 @@ class ExpenseControllerTest {
 	void testCreateExpense() throws Exception {
 		given(expenseController.createExpense(Mockito.any())).willReturn(new ResponseEntity(expense, HttpStatus.CREATED));
 		
-		mvc.perform(post(COMMONURL+FORWARDSLASH+EXPENSE).content("{ \"id\":200, " + 
+		mvc.perform(post(COMMONURL+FORWARDSLASH+EXPENSES).content("{ \"id\":200, " + 
 				"\"amount\": 900," + 
 				"\"category\": {\"categoryId\": 1, \"categoryName\": \"Travel\"}," + 
 				"\"description\": \"test\"," + 
 				"\"expenseDate\": \"2020-09-01T20:27:31.000Z\""
-				+ "}")
-			.characterEncoding("UTF8")	
+				+ "}")	
 			.contentType(APPLICATION_JSON))
 			.andExpect(status().isCreated())
 			.andExpect(jsonPath("id", is(expense.getId())))
@@ -109,13 +107,12 @@ class ExpenseControllerTest {
 	void testCreateExpensewithError() throws Exception {
 		given(expenseController.createExpense(any())).willReturn(new ResponseEntity(expense, HttpStatus.CREATED));
 		
-		mvc.perform(post(COMMONURL+FORWARDSLASH+EXPENSE).content("{ \"id\":200, " + 
+		mvc.perform(post(COMMONURL+FORWARDSLASH+EXPENSES).content("{ \"id\":200, " + 
 				"\"amount\": 900," + 
 				"\"category\": {\"categoryId\": 1, \"categoryName\": \"Travel\"}," + 
 				"\"description\": \"\"," + 
 				"\"expenseDate\": \"2020-09-01T20:27:31.000Z\""
-				+ "}")
-			.characterEncoding("UTF8")	
+				+ "}")	
 			.contentType(APPLICATION_JSON))
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("errorCode", is(1001)))
@@ -126,13 +123,12 @@ class ExpenseControllerTest {
 	void testUpdateExpense() throws Exception {
 		given(expenseController.updateExpense(any(),eq(expense.getId()))).willReturn(new ResponseEntity(expense, HttpStatus.OK));
 		
-		mvc.perform(put(COMMONURL+FORWARDSLASH+EXPENSE+FORWARDSLASH+1).content("{ \"id\":200, " + 
+		mvc.perform(put(COMMONURL+FORWARDSLASH+EXPENSES+FORWARDSLASH+1).content("{ \"id\":200, " + 
 				"\"amount\": 900," + 
 				"\"category\": {\"categoryId\": 1, \"categoryName\": \"Travel\"}," + 
 				"\"description\": \"test\"," + 
 				"\"expenseDate\": \"2020-09-01T20:27:31.000Z\""
-				+ "}")
-			.characterEncoding("UTF8")	
+				+ "}")	
 			.contentType(APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("id", is(expense.getId())))
@@ -144,7 +140,7 @@ class ExpenseControllerTest {
 	void testDeleteExpense() throws Exception {
 		given(expenseController.deleteExpense(anyInt())).willReturn(new ResponseEntity(HttpStatus.OK));
 		
-		mvc.perform(delete(COMMONURL+EXPENSE+FORWARDSLASH+1)
+		mvc.perform(delete(COMMONURL+EXPENSES+FORWARDSLASH+1)
 				.contentType(APPLICATION_JSON))
 				.andExpect(status().isOk());
 	}
@@ -153,7 +149,7 @@ class ExpenseControllerTest {
 	void testDeleteExpenseWithError() throws Exception{
 		given(expenseController.deleteExpense(anyInt())).willReturn(new ResponseEntity(HttpStatus.NOT_FOUND));
 		
-		mvc.perform(delete(COMMONURL+EXPENSE+FORWARDSLASH+5)
+		mvc.perform(delete(COMMONURL+EXPENSES+FORWARDSLASH+5)
 				.contentType(APPLICATION_JSON))
 				.andExpect(status().isNotFound());
 	}

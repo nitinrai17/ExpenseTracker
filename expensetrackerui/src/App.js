@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Route, BrowserRouter, Switch} from 'react-router-dom';
 import Category from './Category';
 import Home from './Home';
-import Expenses from './Expenses';
+import Expense from './Expense';
 
 class App extends Component {
   state = {  }
@@ -11,8 +11,8 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
               <Route path="/" exact component={Home}/>
-              <Route path="/categories" component={Category}/>
-              <Route path="/expenses"  component={Expenses}/>
+              <Route path="/category" component={Category}/>
+              <Route path="/expense"  component={Expense}/>
           </Switch>
          </BrowserRouter> 
 

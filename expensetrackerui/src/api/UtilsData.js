@@ -47,7 +47,7 @@ export const fetchCategoryData = async () => {
 export function getAllCategories() {
     
     return request({
-        url: API_BASE_URL + '/categories',
+        url: '/categories',
         method: 'GET'
     });
 }
@@ -55,7 +55,7 @@ export function getAllCategories() {
 export function createCategory(category) {
     
     return request({
-        url: API_BASE_URL + '/category',
+        url: '/categories',
         method: 'POST',
         body: JSON.stringify(category)         
     });
@@ -64,7 +64,7 @@ export function createCategory(category) {
 export function removeCategory(id) {
     
     return request({
-        url: API_BASE_URL + `/category/${id}`,
+        url: `/categories/${id}`,
         method: 'DELETE'
     });
 }
@@ -73,7 +73,7 @@ export function removeCategory(id) {
 export function getAllExpenses() {
     
     return request({
-        url: API_BASE_URL + '/expenses',
+        url: '/expenses',
         method: 'GET'
     });
 }
@@ -81,7 +81,7 @@ export function getAllExpenses() {
 export function createExpense(expense) {
     
     return request({
-        url: API_BASE_URL + '/expense',
+        url: '/expenses',
         method: 'POST',
         body: JSON.stringify(expense)         
     });
@@ -90,7 +90,7 @@ export function createExpense(expense) {
 export function removeExpense(id) {
     
     return request({
-        url: API_BASE_URL + `/expense/${id}`,
+        url: `/expenses/${id}`,
         method: 'DELETE'
     });
 }

@@ -2,7 +2,6 @@ package com.example.technoxtream17.expensetracker.controller;
 
 import static com.example.technoxtream17.expensetracker.constant.Paths.API;
 import static com.example.technoxtream17.expensetracker.constant.Paths.CATEGORIES;
-import static com.example.technoxtream17.expensetracker.constant.Paths.CATEGORY;
 import static com.example.technoxtream17.expensetracker.constant.Paths.FORWARDSLASH;
 import static com.example.technoxtream17.expensetracker.constant.Paths.VERSION;
 import static java.util.Collections.singletonList;
@@ -13,10 +12,10 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -69,7 +68,7 @@ class CategoryControllerTest {
 		 
 		given(categoryController.getCategory(category.getCategoryId())).willReturn(new ResponseEntity(category, HttpStatus.OK));
 		
-		mvc.perform(get(COMMONURL+CATEGORY+FORWARDSLASH+1)
+		mvc.perform(get(COMMONURL+CATEGORIES+FORWARDSLASH+1)
 				.contentType(APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("categoryId", is(category.getCategoryId())))
@@ -78,7 +77,7 @@ class CategoryControllerTest {
 	
 	@Test
 	void testGetCategoryWithError() throws Exception {
-		mvc.perform(put(COMMONURL+CATEGORY+FORWARDSLASH)
+		mvc.perform(put(COMMONURL+CATEGORIES+FORWARDSLASH)
 				.contentType(APPLICATION_JSON))
 				.andExpect(status().isMethodNotAllowed());
 	}
@@ -88,8 +87,7 @@ class CategoryControllerTest {
 		
 		given(categoryController.createCategory(Mockito.any())).willReturn(new ResponseEntity(category, HttpStatus.CREATED));
 		
-		mvc.perform(post(COMMONURL+FORWARDSLASH+CATEGORY).content("{ \"categoryName\": \"food\"}")
-			.characterEncoding("UTF8")	
+		mvc.perform(post(COMMONURL+FORWARDSLASH+CATEGORIES).content("{ \"categoryName\": \"food\"}")	
 			.contentType(APPLICATION_JSON))
 			.andExpect(status().isCreated())
 			.andExpect(jsonPath("categoryId", is(category.getCategoryId())))
@@ -101,8 +99,7 @@ class CategoryControllerTest {
 		
 		given(categoryController.createCategory(any())).willReturn(new ResponseEntity(category, HttpStatus.CREATED));
 		
-		mvc.perform(post(COMMONURL+FORWARDSLASH+CATEGORY).content("{ \"categoryName\": \"\"}")
-			.characterEncoding("UTF8")	
+		mvc.perform(post(COMMONURL+FORWARDSLASH+CATEGORIES).content("{ \"categoryName\": \"\"}")	
 			.contentType(APPLICATION_JSON))
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("errorCode", is(1001)))
@@ -113,8 +110,7 @@ class CategoryControllerTest {
 	void testUpdateCategory() throws Exception{
 		given(categoryController.updateCategory(any(),eq(category.getCategoryId()))).willReturn(new ResponseEntity(category, HttpStatus.OK));
 		
-		mvc.perform(put(COMMONURL+FORWARDSLASH+CATEGORY+FORWARDSLASH+1).content("{ \"categoryId\": 1, \"categoryName\": \"food\"}")
-			.characterEncoding("UTF8")	
+		mvc.perform(put(COMMONURL+FORWARDSLASH+CATEGORIES+FORWARDSLASH+1).content("{ \"categoryId\": 1, \"categoryName\": \"food\"}")	
 			.contentType(APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("categoryId", is(category.getCategoryId())))
@@ -125,7 +121,7 @@ class CategoryControllerTest {
 	void testDeleteCategory() throws Exception{
 		given(categoryController.deleteCategory(anyInt())).willReturn(new ResponseEntity(HttpStatus.OK));
 		
-		mvc.perform(delete(COMMONURL+CATEGORY+FORWARDSLASH+1)
+		mvc.perform(delete(COMMONURL+CATEGORIES+FORWARDSLASH+1)
 				.contentType(APPLICATION_JSON))
 				.andExpect(status().isOk());
 	}
@@ -134,7 +130,7 @@ class CategoryControllerTest {
 	void testDeleteCategoryWithError() throws Exception{
 		given(categoryController.deleteCategory(anyInt())).willReturn(new ResponseEntity(HttpStatus.NOT_FOUND));
 		
-		mvc.perform(delete(COMMONURL+CATEGORY+FORWARDSLASH+5)
+		mvc.perform(delete(COMMONURL+CATEGORIES+FORWARDSLASH+5)
 				.contentType(APPLICATION_JSON))
 				.andExpect(status().isNotFound());
 	}

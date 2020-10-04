@@ -11,6 +11,7 @@ import static com.example.technoxtream17.expensetracker.constant.Paths.EXPENSES;
 import static com.example.technoxtream17.expensetracker.constant.Paths.FORWARDSLASH;
 import static com.example.technoxtream17.expensetracker.constant.Paths.ID;
 import static com.example.technoxtream17.expensetracker.constant.Paths.VERSION;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +48,8 @@ import io.swagger.annotations.ApiOperation;
 @Api
 public class ExpenseController {
 
+	private static final Logger LOGGER = getLogger(ExpenseController.class);
+	
 	@Autowired
 	MessageSource messageSource;
 
@@ -55,12 +59,14 @@ public class ExpenseController {
 	@ApiOperation("Get all Expenses")
 	@GetMapping(FORWARDSLASH + EXPENSES)
 	Collection<Expense> getExpenses() {
+		LOGGER.info("ExpenseController.getExpenses()");
 		return expenseService.getAllExpenses();
 	}
 
 	@ApiOperation("Get Expense by Id")
-	@GetMapping(FORWARDSLASH + EXPENSE + FORWARDSLASH + BEGINBRACES + ID + ENDBRACES)
+	@GetMapping(FORWARDSLASH + EXPENSES + FORWARDSLASH + BEGINBRACES + ID + ENDBRACES)
 	ResponseEntity<?> getExpense(@PathVariable(ID) int id) {
+		LOGGER.info("ExpenseController.getExpense(%d)",id);
 		Optional<Expense> expense = expenseService.getExpense(id);
 		if (!expense.isPresent()) {
 			throw new GenericNotFoundException(messageSource.getMessage(EXPENSENOTFOUND, null, Locale.ENGLISH));
@@ -69,8 +75,9 @@ public class ExpenseController {
 	}
 
 	@ApiOperation("Create Expense ")
-	@PostMapping(FORWARDSLASH + EXPENSE)
+	@PostMapping(FORWARDSLASH + EXPENSES)
 	ResponseEntity<Expense> createExpense(@Valid @RequestBody Expense expense) throws URISyntaxException {
+		LOGGER.info("ExpenseController.createExpense(%s) ",expense);
 		Expense result = expenseService.createExpense(expense);
 		return ResponseEntity.created(new URI(
 				FORWARDSLASH + API + FORWARDSLASH + VERSION + FORWARDSLASH + CATEGORY + FORWARDSLASH + result.getId()))
@@ -78,16 +85,18 @@ public class ExpenseController {
 	}
 
 	@ApiOperation("Update Expense ")
-	@PutMapping(FORWARDSLASH + EXPENSE + FORWARDSLASH + BEGINBRACES + ID + ENDBRACES)
+	@PutMapping(FORWARDSLASH + EXPENSES + FORWARDSLASH + BEGINBRACES + ID + ENDBRACES)
 	ResponseEntity<Object> updateExpense(@Valid @RequestBody Expense expense, @PathVariable(ID) int id)
 			throws URISyntaxException {
+		LOGGER.info("ExpenseController.updateExpense(%d)",id);
 		Object result = expenseService.updateExpense(expense, id);
 		return ResponseEntity.ok().body(result);
 	}
 
 	@ApiOperation("Delete Expense ")
-	@DeleteMapping(FORWARDSLASH + EXPENSE + FORWARDSLASH + BEGINBRACES + ID + ENDBRACES)
+	@DeleteMapping(FORWARDSLASH + EXPENSES + FORWARDSLASH + BEGINBRACES + ID + ENDBRACES)
 	ResponseEntity<?> deleteExpense(@PathVariable(ID) int id) {
+		LOGGER.info("ExpenseController.deleteExpense(%d)",id);
 		Optional<Expense> expense = expenseService.getExpense(id);
 		if (!expense.isPresent()) {
 			throw new GenericNotFoundException(messageSource.getMessage(EXPENSEIDNOTFOUND, null, Locale.ENGLISH));

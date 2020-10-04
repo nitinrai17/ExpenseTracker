@@ -6,6 +6,7 @@
             "image": "nitinrai17/expensetrackerapi",
             "hostname": "expensetrackerapi",
             "essential": true,
+            "cpu": 1,
             "portMappings": [
                 {
                     "hostPort": 8080,
@@ -19,6 +20,7 @@
             "image":"nitinrai17/expensetrackerui",
             "hostname": "expensetrackerui",
             "essential": true,
+            "cpu": 1,
             "portMappings": [
                 {
                     "hostPort": 80,

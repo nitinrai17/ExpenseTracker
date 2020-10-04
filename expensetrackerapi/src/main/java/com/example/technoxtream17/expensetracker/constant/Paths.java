@@ -2,7 +2,7 @@ package com.example.technoxtream17.expensetracker.constant;
 
 public interface Paths {
 
-	String VERSION = "1.0";
+	String VERSION = "v1";
 	String CATEGORY = "category";
 	String API = "api";
 	String FORWARDSLASH = "/";
