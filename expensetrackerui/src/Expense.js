@@ -43,7 +43,7 @@ class Expenses extends Component {
         const {item }= this.state;        
         await createExpense(item);
         console.log(this.state.item);
-        this.props.history.push('/expenses');
+        this.props.history.push('/expense');
 
     }
 
@@ -76,7 +76,7 @@ class Expenses extends Component {
 
     async remove(id){
         await removeExpense(id);
-        this.props.history.push('/expenses');
+        this.props.history.push('/expense');
     }
 
       async componentDidMount(){

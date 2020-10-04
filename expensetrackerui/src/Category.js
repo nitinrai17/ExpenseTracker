@@ -52,7 +52,7 @@ class Category extends Component {
         const {item }= this.state;
         console.log(this.state);
         await createCategory(item);
-        this.props.history.push('/categories');
+        this.props.history.push('/category');
     }
 
     async remove(id){
@@ -61,7 +61,7 @@ class Category extends Component {
         //    let updatedCategory=[...this.state.categories].filter( i=> i.id !== id);
         //    this.setState({categories : updatedCategory });
         //});
-        this.props.history.push('/categories');
+        this.props.history.push('/category');
     }
 
     render() { 
