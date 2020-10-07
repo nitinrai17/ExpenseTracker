@@ -52,16 +52,13 @@ class Category extends Component {
         const {item }= this.state;
         console.log(this.state);
         await createCategory(item);
-        this.props.history.push('/category');
+        window.location.reload(false);
     }
 
     async remove(id){
         await removeCategory(id);
-        //.then(()=>{
-        //    let updatedCategory=[...this.state.categories].filter( i=> i.id !== id);
-        //    this.setState({categories : updatedCategory });
-        //});
-        this.props.history.push('/category');
+        // this.props.history.push('/category');
+        window.location.reload(false);
     }
 
     render() { 

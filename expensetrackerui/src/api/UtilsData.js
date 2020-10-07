@@ -63,10 +63,9 @@ export function createCategory(category) {
 
 export function removeCategory(id) {
     
-    return request({
-        url: `/categories/${id}`,
-        method: 'DELETE'
-    });
+    return fetch(
+        `/categories/${id}`,{ 'method': 'DELETE'}
+    );
 }
 
 
@@ -88,11 +87,9 @@ export function createExpense(expense) {
 }
 
 export function removeExpense(id) {
-    
-    return request({
-        url: `/expenses/${id}`,
-        method: 'DELETE'
-    });
+    return fetch(
+        `/expenses/${id}`,{ 'method': 'DELETE'}
+    );
 }
 
 
