@@ -1,5 +1,6 @@
-(1)Validation check for Expense and category pages.
-(2)Login Page introduce
-(3)Web security
-(4)README update 
-(5)Axios implementation
+(1)PWA implementation
+(2)Validation check for Expense and category pages.
+(3)Login Page introduce
+(4)Web security
+(5)README update 
+(6)Axios implementation
