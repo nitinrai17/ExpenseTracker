@@ -66,7 +66,7 @@ public class ExpenseController {
 	@ApiOperation("Get Expense by Id")
 	@GetMapping(FORWARDSLASH + EXPENSES + FORWARDSLASH + BEGINBRACES + ID + ENDBRACES)
 	ResponseEntity<?> getExpense(@PathVariable(ID) int id) {
-		LOGGER.info("ExpenseController.getExpense(%d)",id);
+		LOGGER.info("ExpenseController.getExpense({})",id);
 		Optional<Expense> expense = expenseService.getExpense(id);
 		if (!expense.isPresent()) {
 			throw new GenericNotFoundException(messageSource.getMessage(EXPENSENOTFOUND, null, Locale.ENGLISH));
@@ -77,7 +77,7 @@ public class ExpenseController {
 	@ApiOperation("Create Expense ")
 	@PostMapping(FORWARDSLASH + EXPENSES)
 	ResponseEntity<Expense> createExpense(@Valid @RequestBody Expense expense) throws URISyntaxException {
-		LOGGER.info("ExpenseController.createExpense(%s) ",expense);
+		LOGGER.info("ExpenseController.createExpense({}) ",expense);
 		Expense result = expenseService.createExpense(expense);
 		return ResponseEntity.created(new URI(
 				FORWARDSLASH + API + FORWARDSLASH + VERSION + FORWARDSLASH + CATEGORY + FORWARDSLASH + result.getId()))
@@ -88,7 +88,7 @@ public class ExpenseController {
 	@PutMapping(FORWARDSLASH + EXPENSES + FORWARDSLASH + BEGINBRACES + ID + ENDBRACES)
 	ResponseEntity<Object> updateExpense(@Valid @RequestBody Expense expense, @PathVariable(ID) int id)
 			throws URISyntaxException {
-		LOGGER.info("ExpenseController.updateExpense(%d)",id);
+		LOGGER.info("ExpenseController.updateExpense({})",id);
 		Object result = expenseService.updateExpense(expense, id);
 		return ResponseEntity.ok().body(result);
 	}
@@ -96,7 +96,7 @@ public class ExpenseController {
 	@ApiOperation("Delete Expense ")
 	@DeleteMapping(FORWARDSLASH + EXPENSES + FORWARDSLASH + BEGINBRACES + ID + ENDBRACES)
 	ResponseEntity<?> deleteExpense(@PathVariable(ID) int id) {
-		LOGGER.info("ExpenseController.deleteExpense(%d)",id);
+		LOGGER.info("ExpenseController.deleteExpense({})",id);
 		Optional<Expense> expense = expenseService.getExpense(id);
 		if (!expense.isPresent()) {
 			throw new GenericNotFoundException(messageSource.getMessage(EXPENSEIDNOTFOUND, null, Locale.ENGLISH));

@@ -1,29 +1,29 @@
 version: '3'
 services:
-
     #API          
     expensetrackerapi:
         build: 
             dockerfile: Dockerfile.dev
             context: ./expensetrackerapi
-        container_name: expensetrackerapi
         expose:
             - 8080
         ports:
             - '8080:8080'
+
 
     #UI        
     expensetrackerui:
         build:
             context: ./expensetrackerui
             dockerfile: Dockerfile
-        container_name: expensetrackerui
+            args:
+                REACT_APP_API_BASE_URL: http://expensetrackerapi:8080/api/1.0
         expose:
-            - 3000        
+            - 80        
         ports:
             - '80:80'
         environment: 
             - REACT_APP_API_BASE_URL=http://expensetrackerapi:8080/api/1.0
         restart: always
         depends_on:
-            - expensetrackerapi
+                - expensetrackerapi
