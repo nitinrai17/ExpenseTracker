@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import AppNav from './AppNav';
 import DatePicker from 'react-datepicker';
-import "./App.css";
+import "../app/App.css";
 import "react-datepicker/dist/react-datepicker.css";
 import { Table, Container, Form, FormGroup, Button, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { getAllCategories, getAllExpenses, createExpense, removeExpense } from './api/UtilsData';
+import { getAllCategories, getAllExpenses, createExpense, removeExpense } from '../api/UtilsData';
 import Moment from 'react-moment';
 
 

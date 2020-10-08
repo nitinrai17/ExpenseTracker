@@ -13,5 +13,11 @@ This application is used for tracking your daily expenses which you can access f
 ![App Home](./screenshot/screenshot1.png)
 ![App Category](./screenshot/screenshot2.png)
 ![App Expense](./screenshot/screenshot3.png)
+
 Setup:
-- run ```npm i && npm start``` for both client and server side to start the development server
+
+Docker :-
+
+    - Build the image 
+        
+- run 

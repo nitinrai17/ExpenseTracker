@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Route, BrowserRouter, Switch} from 'react-router-dom';
-import Category from './Category';
-import Home from './Home';
-import Expense from './Expense';
+import Category from '../components/Category';
+import Home from '../components/Home';
+import Expense from '../components/Expense';
 
 class App extends Component {
   state = {  }

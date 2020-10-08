@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AppNav from './AppNav';
-import { removeCategory, createCategory, getAllCategories } from './api/UtilsData';
+import { removeCategory, createCategory, getAllCategories } from '../api/UtilsData';
 import { Table, Container, Form, FormGroup, Button, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
