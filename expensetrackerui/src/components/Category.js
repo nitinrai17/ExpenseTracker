@@ -3,6 +3,9 @@ import AppNav from './AppNav';
 import { removeCategory, createCategory, getAllCategories } from '../api/UtilsData';
 import { Table, Container, Form, FormGroup, Button, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import './Category.css';
+import Alert from 'react-s-alert';
+
 
 
 class Category extends Component {
@@ -51,14 +54,28 @@ class Category extends Component {
         event.preventDefault();
         const {item }= this.state;
         console.log(this.state);
-        await createCategory(item);
-        window.location.reload(false);
+        const response = await createCategory(item);
+        if(response.success){
+            Alert.success("You are Successfully added the Category !");
+        }else{
+            Alert.error((response.errorCode && response.errorMessage) || 'Oops ! something went wrong. ') ;
+        }   
+        setTimeout(function(){
+            window.location.reload(1);
+         }, 3000);
     }
 
     async remove(id){
-        await removeCategory(id);
-        // this.props.history.push('/category');
-        window.location.reload(false);
+        const response =await removeCategory(id);
+        console.log(response);
+        if(response.ok){
+            Alert.success("Successfully remove the Category!");
+        }else{
+            Alert.error("UnSuccessfully remove the Category!");
+        }
+        setTimeout(function(){
+            window.location.reload(1);
+         }, 3000);
     }
 
     render() { 
@@ -79,38 +96,41 @@ class Category extends Component {
             
             <div>
              <AppNav/>
-                               
-                <Container>
-                    <h2>Categories</h2>
-                    <Form onSubmit={this.handleSubmit}>
-                        <FormGroup>
-                            <Label for="category">Category</Label>
-                            <Input type="text" name="categoryName" id="category" onChange={this.handleChange} autoComplete="name"/>
-                        </FormGroup>
+             <div className="category-container">
+                    <div className="category-content">               
+                        <Container>
+                            <h2>Categories</h2>
+                            <Form onSubmit={this.handleSubmit}>
+                                <FormGroup>
+                                    <Label for="category">Category</Label>
+                                    <Input type="text" name="categoryName" id="category" onChange={this.handleChange} autoComplete="name"/>
+                                </FormGroup>
 
-                        <FormGroup>
-                            <Button color="primary" type="submit" >Save</Button>{' '}
-                            <Button color="secondary" tag={Link} to="/" >Cancel</Button>
-                        </FormGroup>
+                                <FormGroup>
+                                    <Button color="primary" type="submit" >Save</Button>{' '}
+                                    <Button color="secondary" tag={Link} to="/" >Cancel</Button>
+                                </FormGroup>
 
-                    </Form>
-                </Container>
+                            </Form>
+                        </Container>
 
-                <Container>
-                    <h3> Category List </h3>
-                    <Table className="mt-4">
-                        <thead>
-                            <tr>
-                                <th width="40%">Category Name</th>
-                                <th width="10%">Action</th>
-                            </tr> 
-                        </thead>
-                        <tbody>
-                            {rows}
-                        </tbody>
+                        <Container>
+                            <h3> Category List </h3>
+                            <Table className="mt-4">
+                                <thead>
+                                    <tr>
+                                        <th width="40%">Category Name</th>
+                                        <th width="10%">Action</th>
+                                    </tr> 
+                                </thead>
+                                <tbody>
+                                    {rows}
+                                </tbody>
 
-                    </Table>
-                </Container>
+                            </Table>
+                        </Container>
+                    </div>
+                </div>
             </div>
         );
     }

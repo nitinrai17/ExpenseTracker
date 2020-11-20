@@ -10,6 +10,15 @@ services:
         ports:
             - '8080:8080'
 
+    #user
+    userapi:
+        build: 
+            dockerfile: Dockerfile
+            context: ./userapi
+        expose:
+            - 8100
+        ports:
+            - '8100:8100'
 
     #UI        
     expensetrackerui:

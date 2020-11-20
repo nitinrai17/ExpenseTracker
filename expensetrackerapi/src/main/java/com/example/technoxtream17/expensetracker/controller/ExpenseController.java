@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.technoxtream17.expensetracker.error.GenericNotFoundException;
 import com.example.technoxtream17.expensetracker.model.Expense;
+import com.example.technoxtream17.expensetracker.payload.ApiResponse;
 import com.example.technoxtream17.expensetracker.service.ExpenseService;
 
 import io.swagger.annotations.Api;
@@ -76,12 +77,12 @@ public class ExpenseController {
 
 	@ApiOperation("Create Expense ")
 	@PostMapping(FORWARDSLASH + EXPENSES)
-	ResponseEntity<Expense> createExpense(@Valid @RequestBody Expense expense) throws URISyntaxException {
+	ResponseEntity<ApiResponse> createExpense(@Valid @RequestBody Expense expense) throws URISyntaxException {
 		LOGGER.info("ExpenseController.createExpense({}) ",expense);
 		Expense result = expenseService.createExpense(expense);
 		return ResponseEntity.created(new URI(
 				FORWARDSLASH + API + FORWARDSLASH + VERSION + FORWARDSLASH + CATEGORY + FORWARDSLASH + result.getId()))
-				.body(result);
+				.body(new ApiResponse(result, true));
 	}
 
 	@ApiOperation("Update Expense ")
@@ -90,7 +91,7 @@ public class ExpenseController {
 			throws URISyntaxException {
 		LOGGER.info("ExpenseController.updateExpense({})",id);
 		Object result = expenseService.updateExpense(expense, id);
-		return ResponseEntity.ok().body(result);
+		return ResponseEntity.ok().body(new ApiResponse(result, true));
 	}
 
 	@ApiOperation("Delete Expense ")

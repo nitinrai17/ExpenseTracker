@@ -14,7 +14,21 @@
                 }
             ],
             "memory": 256 
-        },       
+        },
+		{
+			"name": "userapi", 
+			"image": "nitinrai17/userapi",
+			"hostname": "userapi",
+			"essential": true,
+			"cpu": 1,
+			"portMappings": [
+				{
+					"hostPort": 8100,
+					"containerPort": 8100
+				}
+			],
+			"memory": 256 
+        },
         {
             "name":"expensetrackerui",
             "image":"nitinrai17/expensetrackerui",
@@ -27,7 +41,7 @@
                     "containerPort": 80
                 }
             ],
-            "links": ["expensetrackerapi"],
+            "links": ["expensetrackerapi", "userapi"],
             "memory": 128,
             "environment": [
                 {

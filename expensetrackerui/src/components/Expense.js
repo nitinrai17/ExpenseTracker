@@ -7,6 +7,8 @@ import { Table, Container, Form, FormGroup, Button, Label, Input } from 'reactst
 import { Link } from 'react-router-dom';
 import { getAllCategories, getAllExpenses, createExpense, removeExpense } from '../api/UtilsData';
 import Moment from 'react-moment';
+import "./Expense.css";
+import Alert from 'react-s-alert';
 
 
 class Expenses extends Component {
@@ -42,9 +44,18 @@ class Expenses extends Component {
         event.preventDefault();
         const {item }= this.state;        
         console.log(item);
-        await createExpense(item);
-        window.location.reload(false);
-
+        const response = await createExpense(item);
+        console.log(response);
+        console.log(response.body);
+        console.log(response.success);
+        if(response.success){
+            Alert.success("You are Successfully added the Expense !");
+        }else{
+            Alert.error((response.errorCode && response.errorMessage) || 'Oops ! something went wrong. ') ;
+        }
+        setTimeout(function(){
+            window.location.reload(1);
+         }, 3000);
     }
 
     async handleDateChange(date){
@@ -72,8 +83,16 @@ class Expenses extends Component {
     }
 
     async remove(id){
-        await removeExpense(id);
-        window.location.reload(false);
+        const response =await removeExpense(id);
+        console.log(response);
+        if(response.ok){
+            Alert.success("Successfully remove the Expense!");
+        }else{
+            Alert.error("UnSuccessfully remove the Expense!");
+        }       
+        setTimeout(function(){
+            window.location.reload(1);
+         }, 3000);
     }
 
       async componentDidMount(){
@@ -117,67 +136,69 @@ class Expenses extends Component {
         return ( 
             <div>
                 <AppNav/> 
-                 
-                <Container>
-                    {title}
-                    <Form onSubmit={this.handleSubmit}>
-                        <FormGroup>
-                            <Label for="description">Description</Label>
-                            <Input type="text" name="description" id="description" onChange={this.handleChange} autoComplete="name"/>
-                        </FormGroup>
+                 <div className="expense-container">
+                    <div className="expense-content">
+                        <Container>
+                            {title}
+                            <Form onSubmit={this.handleSubmit}>
+                                <FormGroup>
+                                    <Label for="description">Description</Label>
+                                    <Input type="text" name="description" id="description" onChange={this.handleChange} autoComplete="name"/>
+                                </FormGroup>
 
-                        <FormGroup>
-                            <Label for="category" >Category</Label>
-                            <select name="category" onChange={this.handleChange} autoComplete="name">
-                                <option >
-                                        Select Category
-                                </option>
-                                {categoryList}
-                            </select>
-                            
-                        </FormGroup>
+                                <FormGroup>
+                                    <Label for="category" >Category</Label>
+                                    <select name="category" onChange={this.handleChange} autoComplete="name">
+                                        <option >
+                                                Select Category
+                                        </option>
+                                        {categoryList}
+                                    </select>
+                                    
+                                </FormGroup>
 
-                        <FormGroup>
-                            <Label for="date"> Date</Label>
-                            <DatePicker selected={this.state.item.expenseDate}  onChange={this.handleDateChange}/>
-                        </FormGroup>
+                                <FormGroup>
+                                    <Label for="date"> Date</Label>
+                                    <DatePicker selected={this.state.item.expenseDate}  onChange={this.handleDateChange}/>
+                                </FormGroup>
 
-                        <div className="row">
-                            <FormGroup className="col-md-4 mb-3" >
-                                <Label for="amount">Amount</Label>
-                                <Input type="text" name="amount" id="amount" onChange={this.handleChange} autoComplete="name"/>
-                            </FormGroup>
-                        </div>
-                        
+                                <div className="row">
+                                    <FormGroup className="col-md-4 mb-3" >
+                                        <Label for="amount">Amount</Label>
+                                        <Input type="text" name="amount" id="amount" onChange={this.handleChange} autoComplete="name"/>
+                                    </FormGroup>
+                                </div>
+                                
 
-                        <FormGroup>
-                            <Button color="primary" type="submit" >Save</Button>{' '}
-                            <Button color="secondary" tag={Link} to="/" >Cancel</Button>
-                        </FormGroup>
+                                <FormGroup>
+                                    <Button color="primary" type="submit" >Save</Button>{' '}
+                                    <Button color="secondary" tag={Link} to="/" >Cancel</Button>
+                                </FormGroup>
 
-                    </Form>
-                </Container>
+                            </Form>
+                        </Container>
 
 
-                <Container>
-                    <h3> Expense List </h3>
-                    <Table className="mt-4">
-                        <thead>
-                            <tr>
-                                <th width="40%">Description</th>
-                                <th width="15%">Amount</th>
-                                <th width="20%">Date</th>
-                                <th>Category</th>
-                                <th width="15%">Action</th>
-                            </tr> 
-                        </thead>
-                        <tbody>
-                            {rows}
-                        </tbody>
+                        <Container>
+                            <h3> Expense List </h3>
+                            <Table className="mt-4">
+                                <thead>
+                                    <tr>
+                                        <th width="40%">Description</th>
+                                        <th width="15%">Amount</th>
+                                        <th width="20%">Date</th>
+                                        <th>Category</th>
+                                        <th width="15%">Action</th>
+                                    </tr> 
+                                </thead>
+                                <tbody>
+                                    {rows}
+                                </tbody>
 
-                    </Table>
-                </Container>
-
+                            </Table>
+                        </Container>
+                    </div>
+                </div>
             </div>     
         );
     }

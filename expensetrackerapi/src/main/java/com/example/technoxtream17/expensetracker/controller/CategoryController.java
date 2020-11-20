@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.technoxtream17.expensetracker.error.GenericNotFoundException;
 import com.example.technoxtream17.expensetracker.model.Category;
+import com.example.technoxtream17.expensetracker.payload.ApiResponse;
 import com.example.technoxtream17.expensetracker.service.CategoryService;
 
 import io.swagger.annotations.Api;
@@ -74,11 +75,11 @@ public class CategoryController {
 
 	@ApiOperation("Create Category ")
 	@PostMapping(FORWARDSLASH + CATEGORIES)
-	ResponseEntity<Category> createCategory(@Valid @RequestBody Category category) throws URISyntaxException {
+	ResponseEntity<ApiResponse> createCategory(@Valid @RequestBody Category category) throws URISyntaxException {
 		LOGGER.info("CategoryController.createCategory({})",category);
 		Category result = categoryService.createCategory(category);
 		return ResponseEntity.created(new URI(FORWARDSLASH + API + FORWARDSLASH + VERSION + FORWARDSLASH + CATEGORIES
-				+ FORWARDSLASH + result.getCategoryId())).body(result);
+				+ FORWARDSLASH + result.getCategoryId())).body(new ApiResponse(result, true));
 	}
 
 	@ApiOperation("Update Category ")
@@ -87,7 +88,7 @@ public class CategoryController {
 			throws URISyntaxException {
 		LOGGER.info("CategoryController.updateCategory({} ,  {} )", category, id);
 		Object result = categoryService.updateCategory(category, id);
-		return ResponseEntity.ok().body(result);
+		return ResponseEntity.ok().body(new ApiResponse(result, true));
 	}
 
 	@ApiOperation("Delete Category ")

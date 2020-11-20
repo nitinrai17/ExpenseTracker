@@ -2,6 +2,7 @@ package com.example.technoxtream17.expensetracker.service.impl;
 
 import static com.example.technoxtream17.expensetracker.constant.Paths.CATEGORYNOTMATCH;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	public Optional<Category> getCategory(int id) {
+		Optional.of(Arrays.asList());
 		return categoryRepo.findById(id);
 	}
 
